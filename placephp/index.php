@@ -21,24 +21,27 @@
 
 <form method="post">  
 Enter your CGPA:  
-<input type="number" name="number1" />
+<input type="number" step="any" min="0" name="number1" />
 <input  type="submit" name="submit" value="Check"> <br><br>
 </form>  
 
 
 <?php
+	
 
 	if(isset($_POST['submit']))  
     {  
-        $number1 = $_POST['number1'];  
   
-	}
+        $number1 = $_POST['number1'];  
 
-
-		
-	$sql = "SELECT * FROM Companies WHERE CGPA > $number1 ;" ;
+        $sql = "SELECT * FROM Companies WHERE CGPA > $number1 ;" ;
 	$result = mysqli_query($conn, $sql);
 	$resultCheck = mysqli_num_rows($result) ;
+
+	if($number1 > 10)
+	{
+		echo "Invalid CGPA "." <br> " ;
+	}
 
 	if ($resultCheck > 0)
 	{
@@ -47,6 +50,9 @@ Enter your CGPA:
 			echo $row['SNo']."  ".$row['COMPANY']." <br>";
 		}
 	}
+  
+	}
+
 ?>
 
 </div>
